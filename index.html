@@ -3,25 +3,31 @@
 <head>
   <title>Secure Archive</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
       font-family: Arial;
       text-align: center;
-      background: #0f172a;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
       color: white;
     }
 
     #login {
-      margin-top: 120px;
+      margin-top: 30vh;
+      padding: 20px;
     }
 
     #mainContent {
       display: none;
-      padding: 20px;
+      padding: 15px;
+      animation: fadeIn 1.5s;
     }
 
     input {
+      width: 80%;
+      max-width: 250px;
       padding: 12px;
       border-radius: 8px;
       border: none;
@@ -29,19 +35,49 @@
     }
 
     button {
-      padding: 10px 20px;
+      width: 80%;
+      max-width: 250px;
+      padding: 12px;
       background: #22c55e;
       color: black;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       font-size: 16px;
+      margin-top: 10px;
     }
 
     img {
-      width: 260px;
-      border-radius: 15px;
+      width: 90%;
+      max-width: 300px;
+      border-radius: 20px;
       margin-top: 20px;
+      box-shadow: 0px 0px 20px rgba(255,255,255,0.2);
+    }
+
+    h1 {
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 16px;
+      padding: 0 10px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .heart {
+      position: fixed;
+      color: red;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes float {
+      from {transform: translateY(100vh);}
+      to {transform: translateY(-10vh);}
     }
   </style>
 </head>
@@ -50,27 +86,30 @@
 
 <!-- LOGIN -->
 <div id="login">
-  <h2>🔐 Secure Archive Access</h2>
+  <h2>🔐 Secure Archive</h2>
   <p>Enter Access Key</p>
 
   <input type="password" id="pass" placeholder="Access Key">
-  <br><br>
+  <br>
 
-  <button onclick="checkPass()">Unlock</button>
+  <button onclick="checkPass()">Unlock ❤️</button>
   <p id="error" style="color:red;"></p>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <div id="mainContent">
   <h1>Happy Birthday ❤️</h1>
 
-  <img src="photo.jpg" alt="photo">
+  <img src="photo.jpg">
 
-  <p>You are my happiness 💕</p>
+  <p id="typing"></p>
 
-  <button onclick="showMessage()">Open Message</button>
+  <button onclick="showMessage()">Open Surprise 🎁</button>
   <p id="msg"></p>
 </div>
+
+<!-- MUSIC -->
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
 <script>
 function checkPass() {
@@ -79,14 +118,50 @@ function checkPass() {
   if (password === "8853") {
     document.getElementById("login").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
+    document.getElementById("music").play();
+    startTyping();
+    createHearts();
   } else {
     document.getElementById("error").innerText = "Access Denied ❌";
   }
 }
 
+// Typing Effect
+let text = "Baccha You are the most special person in my life 💕";
+let i = 0;
+
+function startTyping() {
+  let speed = 50;
+  function type() {
+    if (i < text.length) {
+      document.getElementById("typing").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
+
+// Surprise Message
 function showMessage() {
   document.getElementById("msg").innerText =
-  "You are the best thing in my life ❤️ Stay with me forever 💖";
+  "I love you more than anything ❤️ Always stay with me 💖";
+}
+
+// Floating Hearts
+function createHearts() {
+  setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }, 400);
 }
 </script>
 
