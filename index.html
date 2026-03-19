@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secure Archive</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #0f172a;
+      color: white;
+    }
+
+    #login {
+      margin-top: 100px;
+    }
+
+    #mainContent {
+      display: none;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #22c55e;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    img {
+      width: 250px;
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login">
+  <h2>🔐 Secure Archive Access</h2>
+  <p>Enter Access Key</p>
+
+  <input type="password" id="pass" placeholder="Access Key">
+  <br><br>
+
+  <button onclick="checkPass()">Unlock</button>
+  <p id="error" style="color:red;"></p>
+</div>
+
+<!-- SECRET CONTENT -->
+<div id="mainContent">
+  <h1>Happy Birthday ❤️</h1>
+
+  <img src="photo.jpg">
+
+  <p>You are my favorite person 💕</p>
+
+  <button onclick="showMessage()">Open Message</button>
+  <p id="msg"></p>
+</div>
+
+<script>
+function checkPass() {
+  var password = document.getElementById("pass").value;
+
+  if (password === "hername") {   // 👈 yaha password change karna
+    document.getElementById("login").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+  } else {
+    document.getElementById("error").innerHTML = "Access Denied";
+  }
+}
+
+function showMessage() {
+  document.getElementById("msg").innerHTML =
+  "You mean everything to me ❤️ Stay with me forever 💖";
+}
+</script>
+
+</body>
+</html>
