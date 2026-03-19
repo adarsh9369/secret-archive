@@ -22,13 +22,26 @@
             margin: 0;
             padding: 0;
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
+            background: url('photo.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: #fff;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+        }
+
+        /* Dark overlay to ensure text is always readable over the photo */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: -1;
         }
 
         .container {
@@ -162,26 +175,22 @@
             margin-bottom: 30px;
         }
 
-        .image-placeholder {
+        .image-box {
             width: 200px;
             height: 200px;
-            background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
-            color: rgba(255, 255, 255, 0.5);
-            font-weight: 500;
+            object-fit: cover;
+            /* Ensures the image fits the square perfectly */
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        .image-placeholder:hover {
-            transform: translateY(-10px) scale(1.02);
+        .image-box:hover {
+            transform: translateY(-10px) scale(1.05);
             border-color: var(--text-color);
-            color: var(--text-color);
-            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 25px rgba(233, 69, 96, 0.4);
         }
 
         .message-container {
@@ -205,6 +214,29 @@
             50% {
                 opacity: 0;
             }
+        }
+
+        .drive-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .drive-btn:hover {
+            background: var(--button-bg);
+            border-color: var(--button-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(233, 69, 96, 0.4);
         }
 
         .music-control {
@@ -291,7 +323,7 @@
                 align-items: center;
             }
 
-            .image-placeholder {
+            .image-box {
                 width: 100%;
                 max-width: 250px;
             }
@@ -334,9 +366,9 @@
         <div class="surprise-box">
             <h1 class="fade-in">Happy Birthday! 🎉</h1>
             <div class="images-container fade-in delay-1">
-                <div class="image-placeholder">Image 1</div>
-                <div class="image-placeholder">Image 2</div>
-                <div class="image-placeholder">Image 3</div>
+                <!-- Mobile-friendly button to open the Google Drive folder -->
+                <a href="https://drive.google.com/drive/folders/1hE5GLRhtuaz5Rns1WxXAllfMWx-irJXo" target="_blank"
+                    class="drive-btn">📁 Open Photo Gallery</a>
             </div>
             <div class="message-container fade-in delay-2">
                 <p id="typing-text"></p>
