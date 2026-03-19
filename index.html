@@ -5,6 +5,7 @@
 
   <style>
     body {
+      margin: 0;
       font-family: Arial;
       text-align: center;
       background: #0f172a;
@@ -12,18 +13,19 @@
     }
 
     #login {
-      margin-top: 100px;
+      margin-top: 120px;
     }
 
     #mainContent {
       display: none;
+      padding: 20px;
     }
 
     input {
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
       border: none;
-      outline: none;
+      font-size: 16px;
     }
 
     button {
@@ -33,10 +35,11 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 16px;
     }
 
     img {
-      width: 250px;
+      width: 260px;
       border-radius: 15px;
       margin-top: 20px;
     }
@@ -45,7 +48,7 @@
 
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div id="login">
   <h2>🔐 Secure Archive Access</h2>
   <p>Enter Access Key</p>
@@ -57,13 +60,13 @@
   <p id="error" style="color:red;"></p>
 </div>
 
-<!-- SECRET CONTENT -->
+<!-- MAIN CONTENT -->
 <div id="mainContent">
   <h1>Happy Birthday ❤️</h1>
 
-  <img src="photo.jpg">
+  <img src="photo.jpg" alt="photo">
 
-  <p>You are my favorite person 💕</p>
+  <p>You are my happiness 💕</p>
 
   <button onclick="showMessage()">Open Message</button>
   <p id="msg"></p>
@@ -71,19 +74,19 @@
 
 <script>
 function checkPass() {
-  var password = document.getElementById("pass").value;
+  let password = document.getElementById("pass").value.trim();
 
-  if (password === "hername") {   // 👈 yaha password change karna
+  if (password === "8853") {
     document.getElementById("login").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
   } else {
-    document.getElementById("error").innerHTML = "Access Denied";
+    document.getElementById("error").innerText = "Access Denied ❌";
   }
 }
 
 function showMessage() {
-  document.getElementById("msg").innerHTML =
-  "You mean everything to me ❤️ Stay with me forever 💖";
+  document.getElementById("msg").innerText =
+  "You are the best thing in my life ❤️ Stay with me forever 💖";
 }
 </script>
 
