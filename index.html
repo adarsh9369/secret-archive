@@ -40,18 +40,25 @@ body, html {
 }
 
 #main-content {
-    background: url('photo.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background: linear-gradient(-45deg, #1a1a2e, #0f3460, #ff2a5f, #3a0d1d);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     z-index: 5;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 #main-content::before {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.4);
     z-index: -1;
 }
 
@@ -353,7 +360,7 @@ button:hover {
             <h1 class="fade-in glowing-text">Happy Birthday! 🎉</h1>
             <div class="images-container fade-in delay-1">
                 <!-- Mobile-friendly button to open the Google Drive folder -->
-                <a href="https://drive.google.com/drive/folders/1hE5GLRhtuaz5Rns1WxXAllfMWx-irJXo" target="_blank" class="drive-btn">📁 Open Photo Gallery</a>
+                <a href="https://drive.google.com/drive/folders/1hE5GLRhtuaz5Rns1WxXAllfMWx-irJXo" target="_blank" class="drive-btn">📁 For Our Memories See This Folder</a>
             </div>
             <div class="message-container fade-in delay-2">
                 <p id="typing-text"></p>
@@ -374,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const typingText = document.getElementById('typing-text');
     const transitionHeart = document.getElementById('transition-heart');
 
-    const MASTER_PASSWORD = 'happybirthday';
+    const MASTER_PASSWORD = '8853';
     const HIDDEN_MESSAGE = "Wishing you the happiest of birthdays! 🌟 Here's a tiny digital archive celebrating you. Every love story is beautiful, but ours is my absolute favorite. May this year bring you endless joy, beautiful memories, and countless smiles. You mean the world to me. ❤️";
 
     // Logic for Login Validation
