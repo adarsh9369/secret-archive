@@ -1,347 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Archive</title>
     <style>
-        /* CSS styles start */
-        :root {
-            --bg-color: #1a1a2e;
-            --text-color: #e94560;
-            --primary: #0f3460;
-            --secondary: #16213e;
-            --input-bg: #fff;
-            --button-bg: #e94560;
-            --button-hover: #d1304b;
-        }
+/* CSS styles start */
+:root {
+    --bg-color: #1a1a2e;
+    --text-color: #ff2a5f;
+    --primary: #0f3460;
+    --secondary: #16213e;
+    --input-bg: #fff;
+    --button-bg: #ff2a5f;
+    --button-hover: #e0003f;
+}
 
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: url('photo.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at center, #3a0d1d 0%, #1a1a2e 100%);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
 
-        /* Dark overlay to ensure text is always readable over the photo */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.65);
-            z-index: -1;
-        }
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: opacity 0.5s ease-in-out;
+}
 
-        .container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            transition: opacity 0.5s ease-in-out;
-        }
+#main-content {
+    background: url('photo.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 5;
+}
 
-        .hidden {
-            display: none !important;
-        }
+#main-content::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: -1;
+}
 
-        .login-box {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 400px;
-            width: 90%;
-            transition: transform 0.3s ease;
-        }
+.hidden {
+    display: none !important;
+}
 
-        .login-box h1 {
-            color: var(--text-color);
-            margin-bottom: 10px;
-            font-size: 2rem;
-        }
+.login-box {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 400px;
+    width: 90%;
+    transition: transform 0.3s ease;
+}
 
-        .input-group {
-            display: flex;
-            margin-top: 25px;
-            gap: 10px;
-        }
+.login-box h1 {
+    color: var(--text-color);
+    margin-bottom: 10px;
+    font-size: 2.2rem;
+    text-shadow: 0 0 10px rgba(255, 42, 95, 0.5);
+}
 
-        input {
-            flex: 1;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 16px;
-            outline: none;
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
-        }
+.input-group {
+    display: flex;
+    margin-top: 25px;
+    gap: 10px;
+}
 
-        input:focus {
-            border-color: var(--text-color);
-            background: rgba(255, 255, 255, 0.15);
-        }
+input {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
 
-        button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            background: var(--button-bg);
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+input:focus {
+    border-color: var(--text-color);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(255, 42, 95, 0.3);
+}
 
-        button:hover {
-            background: var(--button-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
-        }
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: var(--button-bg);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
 
-        .error {
-            color: #ff4757;
-            margin-top: 15px;
-            font-size: 14px;
-            animation: shake 0.4s ease-in-out both;
-        }
+button:hover {
+    background: var(--button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 42, 95, 0.5);
+}
 
-        @keyframes shake {
+.error {
+    color: #ff4757;
+    margin-top: 15px;
+    font-size: 14px;
+    animation: shake 0.4s ease-in-out both;
+}
 
-            0%,
-            100% {
-                transform: translateX(0);
-            }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
 
-            25% {
-                transform: translateX(-10px);
-            }
+.surprise-box {
+    text-align: center;
+    max-width: 800px;
+    width: 90%;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10;
+}
 
-            75% {
-                transform: translateX(10px);
-            }
-        }
+.surprise-box h1 {
+    color: #fff;
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+}
 
-        .surprise-box {
-            text-align: center;
-            max-width: 800px;
-            width: 90%;
-            padding: 40px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 20px;
-            max-height: 90vh;
-            overflow-y: auto;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 10;
-        }
+.glowing-text {
+    animation: glow 2s ease-in-out infinite alternate;
+}
 
-        .surprise-box h1 {
-            color: var(--text-color);
-            font-size: 3rem;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(233, 69, 96, 0.5);
-        }
+@keyframes glow {
+    from { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--text-color), 0 0 20px var(--text-color); }
+    to { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--text-color), 0 0 40px var(--text-color); }
+}
 
-        .images-container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
+.images-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
 
-        .image-box {
-            width: 200px;
-            height: 200px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            object-fit: cover;
-            /* Ensures the image fits the square perfectly */
-            background: rgba(255, 255, 255, 0.05);
-        }
+.drive-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}
 
-        .image-box:hover {
-            transform: translateY(-10px) scale(1.05);
-            border-color: var(--text-color);
-            box-shadow: 0 15px 25px rgba(233, 69, 96, 0.4);
-        }
+.drive-btn:hover {
+    background: var(--button-bg);
+    border-color: var(--button-hover);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(255, 42, 95, 0.5);
+}
 
-        .message-container {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 12px;
-            min-height: 120px;
-            text-align: left;
-            font-size: 1.2rem;
-            line-height: 1.8;
-            border-left: 4px solid var(--text-color);
-            position: relative;
-        }
+.message-container {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 25px;
+    border-radius: 12px;
+    min-height: 120px;
+    text-align: left;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    border-left: 5px solid var(--text-color);
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+}
 
-        .typing-cursor::after {
-            content: '|';
-            animation: blink 1s step-end infinite;
-        }
+.typing-cursor::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+}
 
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
-        }
+@keyframes blink {
+    50% { opacity: 0; }
+}
 
-        .drive-btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 30px;
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
+.music-control {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 20;
+}
 
-        .drive-btn:hover {
-            background: var(--button-bg);
-            border-color: var(--button-hover);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(233, 69, 96, 0.4);
-        }
+#music-btn {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    color: white;
+}
 
-        .music-control {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 20;
-        }
+#music-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
 
-        #music-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+#music-btn.playing {
+    background: rgba(255, 42, 95, 0.8);
+    border-color: transparent;
+}
 
-        #music-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-        }
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeIn 1.2s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+}
 
-        #music-btn.playing {
-            background: rgba(233, 69, 96, 0.8);
-            border-color: transparent;
-        }
+.delay-1 { animation-delay: 1.2s; }
+.delay-2 { animation-delay: 2.2s; }
 
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 1s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .delay-1 {
-            animation-delay: 0.8s;
-        }
+/* Heart Burst Transition */
+#transition-heart {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 15rem;
+    z-index: 999;
+    pointer-events: none;
+    text-shadow: 0 0 50px rgba(255, 42, 95, 0.9);
+}
 
-        .delay-2 {
-            animation-delay: 1.6s;
-        }
+.heart-burst {
+    animation: burst 1.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+@keyframes burst {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    40% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    55% { transform: translate(-50%, -50%) scale(0.9); opacity: 1; }
+    70% { transform: translate(-50%, -50%) scale(1.4); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(30); opacity: 0; }
+}
 
-        /* Floating Hearts Animation */
-        .heart {
-            position: absolute;
-            bottom: -100px;
-            color: var(--text-color);
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0;
-            animation: floatHeart linear infinite, pulse 2s ease-in-out infinite alternate;
-        }
+/* Floating Hearts Animation */
+.heart {
+    position: absolute;
+    bottom: -100px;
+    color: var(--text-color);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    animation: floatHeart linear infinite, pulse 2s ease-in-out infinite alternate;
+}
 
-        @keyframes floatHeart {
-            0% {
-                transform: translateY(0) scale(1) rotate(0deg);
-                opacity: 1;
-            }
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh) scale(1.5) rotate(360deg);
+        opacity: 0;
+    }
+}
 
-            100% {
-                transform: translateY(-120vh) scale(1.5) rotate(360deg);
-                opacity: 0;
-            }
-        }
+@keyframes pulse {
+    0% { transform: scale(1); text-shadow: 0 0 10px rgba(255,42,95,0.5); }
+    100% { transform: scale(1.2); text-shadow: 0 0 20px rgba(255,42,95,0.8); }
+}
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(1.1);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .images-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .image-box {
-                width: 100%;
-                max-width: 250px;
-            }
-
-            .surprise-box h1 {
-                font-size: 2.2rem;
-            }
-
-            .message-container {
-                font-size: 1.1rem;
-            }
-        }
-
-        /* CSS styles end */
+@media (max-width: 600px) {
+    .images-container { flex-direction: column; align-items: center; }
+    .surprise-box h1 { font-size: 2.5rem; }
+    .message-container { font-size: 1.1rem; }
+    #transition-heart { font-size: 10rem; }
+}
+/* CSS styles end */
     </style>
 </head>
 
 <body>
+    <!-- Heart Transition Element -->
+    <div id="transition-heart" class="hidden">❤️</div>
+
     <div id="login-container" class="container">
         <div class="login-box">
             <h1>Secure Archive</h1>
@@ -362,13 +348,12 @@
                 <source src="music.mp3" type="audio/mpeg">
             </audio>
         </div>
-
+        
         <div class="surprise-box">
-            <h1 class="fade-in">Happy Birthday! 🎉</h1>
+            <h1 class="fade-in glowing-text">Happy Birthday! 🎉</h1>
             <div class="images-container fade-in delay-1">
                 <!-- Mobile-friendly button to open the Google Drive folder -->
-                <a href="https://drive.google.com/drive/folders/1hE5GLRhtuaz5Rns1WxXAllfMWx-irJXo" target="_blank"
-                    class="drive-btn">📁 Open Photo Gallery</a>
+                <a href="https://drive.google.com/drive/folders/1hE5GLRhtuaz5Rns1WxXAllfMWx-irJXo" target="_blank" class="drive-btn">📁 Open Photo Gallery</a>
             </div>
             <div class="message-container fade-in delay-2">
                 <p id="typing-text"></p>
@@ -377,128 +362,145 @@
     </div>
 
     <script>
-        // JS logic start
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginContainer = document.getElementById('login-container');
-            const mainContent = document.getElementById('main-content');
-            const passwordInput = document.getElementById('password-input');
-            const loginBtn = document.getElementById('login-btn');
-            const errorMsg = document.getElementById('error-msg');
-            const bgMusic = document.getElementById('bg-music');
-            const musicBtn = document.getElementById('music-btn');
-            const typingText = document.getElementById('typing-text');
+// JS logic start
+document.addEventListener('DOMContentLoaded', () => {
+    const loginContainer = document.getElementById('login-container');
+    const mainContent = document.getElementById('main-content');
+    const passwordInput = document.getElementById('password-input');
+    const loginBtn = document.getElementById('login-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const bgMusic = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    const typingText = document.getElementById('typing-text');
+    const transitionHeart = document.getElementById('transition-heart');
 
-            const MASTER_PASSWORD = 'happybirthday';
-            const HIDDEN_MESSAGE = "Wishing you the happiest of birthdays! 🌟 Here's a tiny digital archive celebrating you. May this year bring you endless joy, beautiful memories, and countless smiles. You mean the world to me.";
+    const MASTER_PASSWORD = 'happybirthday';
+    const HIDDEN_MESSAGE = "Wishing you the happiest of birthdays! 🌟 Here's a tiny digital archive celebrating you. Every love story is beautiful, but ours is my absolute favorite. May this year bring you endless joy, beautiful memories, and countless smiles. You mean the world to me. ❤️";
 
-            // Logic for Login Validation
-            function attemptLogin() {
-                const enteredPassword = passwordInput.value.trim().toLowerCase();
-                if (enteredPassword === MASTER_PASSWORD) {
-                    // Success
-                    loginContainer.style.opacity = '0';
-                    setTimeout(() => {
-                        loginContainer.classList.add('hidden');
-                        mainContent.classList.remove('hidden');
-
-                        // Play music if possible
-                        bgMusic.volume = 0.4;
-                        bgMusic.play().then(() => {
-                            musicBtn.innerHTML = '⏸️ Pause';
-                            musicBtn.classList.add('playing');
-                        }).catch(() => {
-                            console.log("Browser autoplay blocked. User must interact to play audio.");
-                        });
-
-                        startTypingEffect();
-                        startFloatingHearts();
-
-                        // Opacity animation for main content
-                        mainContent.style.opacity = '0';
-                        setTimeout(() => mainContent.style.opacity = '1', 50);
-                    }, 500); // Wait for fade out
-                } else {
-                    // Failure
-                    errorMsg.classList.remove('hidden');
-                    passwordInput.value = '';
-
-                    // Remove animation to retrigger it
-                    errorMsg.style.animation = 'none';
-                    errorMsg.offsetHeight; /* trigger reflow */
-                    errorMsg.style.animation = null;
-                }
-            }
-
-            loginBtn.addEventListener('click', attemptLogin);
-            passwordInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') attemptLogin();
-            });
-
-            // Music Control
-            musicBtn.addEventListener('click', () => {
-                if (bgMusic.paused) {
-                    bgMusic.play();
+    // Logic for Login Validation
+    function attemptLogin() {
+        const enteredPassword = passwordInput.value.trim().toLowerCase();
+        if (enteredPassword === MASTER_PASSWORD) {
+            // Success
+            loginContainer.style.opacity = '0';
+            
+            setTimeout(() => {
+                loginContainer.classList.add('hidden');
+                
+                // Trigger the massive heart burst animation!
+                transitionHeart.classList.remove('hidden');
+                transitionHeart.classList.add('heart-burst');
+                
+                // Play music if possible
+                bgMusic.volume = 0.4;
+                bgMusic.play().then(() => {
                     musicBtn.innerHTML = '⏸️ Pause';
                     musicBtn.classList.add('playing');
-                } else {
-                    bgMusic.pause();
-                    musicBtn.innerHTML = '🎵 Play Music';
-                    musicBtn.classList.remove('playing');
-                }
-            });
+                }).catch(() => {
+                    console.log("Browser autoplay blocked.");
+                });
 
-            // Typing Effect Logic
-            function startTypingEffect() {
-                typingText.innerHTML = '';
-                typingText.classList.add('typing-cursor');
-
-                // Wait for page animations before typing
+                // Wait for the heart burst to cover the screen before revealing the main content
                 setTimeout(() => {
-                    let i = 0;
-                    function typeChar() {
-                        if (i < HIDDEN_MESSAGE.length) {
-                            typingText.innerHTML = HIDDEN_MESSAGE.substring(0, i + 1);
-                            i++;
-                            // Randomize typing speed slightly for realism
-                            let typeSpeed = Math.random() * 40 + 30;
-                            setTimeout(typeChar, typeSpeed);
-                        } else {
-                            // Remove cursor effect after typing finishes
-                            setTimeout(() => {
-                                typingText.classList.remove('typing-cursor');
-                            }, 2000);
-                        }
-                    }
-                    typeChar();
-                }, 2200); // Waits ~2.2s
-            }
+                    mainContent.classList.remove('hidden');
+                    startTypingEffect();
+                    startFloatingHearts();
+                    
+                    mainContent.style.opacity = '0';
+                    mainContent.style.transition = 'opacity 1s ease-in-out';
+                    setTimeout(() => mainContent.style.opacity = '1', 50);
+                    
+                    // Cleanup transition heart
+                    setTimeout(() => transitionHeart.remove(), 1000);
+                }, 1400); // Trigger just as heart scales up massively
+                
+            }, 500); // Wait for login box fade out
+        } else {
+            // Failure
+            errorMsg.classList.remove('hidden');
+            passwordInput.value = '';
+            
+            // Remove animation to retrigger it
+            errorMsg.style.animation = 'none';
+            errorMsg.offsetHeight; /* trigger reflow */
+            errorMsg.style.animation = null; 
+        }
+    }
 
-            // Floating Hearts Logic for Ambient Background
-            function startFloatingHearts() {
-                setInterval(() => {
-                    if (mainContent.classList.contains('hidden')) return;
+    loginBtn.addEventListener('click', attemptLogin);
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') attemptLogin();
+    });
 
-                    const heart = document.createElement('div');
-                    heart.classList.add('heart');
-                    heart.innerHTML = '❤';
+    // Music Control
+    musicBtn.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.play();
+            musicBtn.innerHTML = '⏸️ Pause';
+            musicBtn.classList.add('playing');
+        } else {
+            bgMusic.pause();
+            musicBtn.innerHTML = '🎵 Play Music';
+            musicBtn.classList.remove('playing');
+        }
+    });
 
-                    // Random properties to make it organic
-                    heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.animationDuration = Math.random() * 3 + 5 + 's';
-                    heart.style.opacity = Math.random() * 0.5 + 0.3;
-                    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-
-                    document.body.appendChild(heart);
-
-                    // Cleanup
+    // Typing Effect Logic
+    function startTypingEffect() {
+        typingText.innerHTML = '';
+        typingText.classList.add('typing-cursor');
+        
+        // Wait for page animations before typing
+        setTimeout(() => {
+            let i = 0;
+            function typeChar() {
+                if (i < HIDDEN_MESSAGE.length) {
+                    typingText.innerHTML = HIDDEN_MESSAGE.substring(0, i + 1);
+                    i++;
+                    // Randomize typing speed slightly for realism
+                    let typeSpeed = Math.random() * 40 + 30; 
+                    setTimeout(typeChar, typeSpeed);
+                } else {
+                    // Remove cursor effect after typing finishes
                     setTimeout(() => {
-                        heart.remove();
-                    }, 8000);
-                }, 600);
+                        typingText.classList.remove('typing-cursor');
+                    }, 2000);
+                }
             }
-        });
-        // JS logic end
+            typeChar();
+        }, 3000); // Waits for elements to fade in completely
+    }
+
+    // Floating Hearts Logic for Ambient Background - Enhanced for extra romance
+    function startFloatingHearts() {
+        const heartColors = ['#ff2a5f', '#ff7eb3', '#ff0055', '#ffffff'];
+        
+        setInterval(() => {
+            if(mainContent.classList.contains('hidden')) return;
+            
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            
+            // Random properties to make it organic
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 4 + 6 + 's';
+            heart.style.opacity = Math.random() * 0.6 + 0.2;
+            heart.style.fontSize = (Math.random() * 25 + 15) + 'px';
+            
+            // Randomly select a romantic color
+            heart.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+            
+            document.body.appendChild(heart);
+            
+            // Cleanup
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }, 400); // increased frequency slightly
+    }
+});
+// JS logic end
     </script>
 </body>
-
 </html>
